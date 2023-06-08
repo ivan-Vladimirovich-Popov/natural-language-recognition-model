@@ -1,0 +1,33 @@
+import xlsxwriter
+
+
+path = текстовый файл с негативными коментариями
+path2= текстовый  файл с позитивными коментариями
+workbook = xlsxwriter.Workbook('new_file.xlsx')
+# создаем там "лист"
+worksheet = workbook.add_worksheet()
+# в ячейку A1 пишем текст
+worksheet.write(f'A1',"comment")
+worksheet.write(f"B1","emotional coloring")
+for i in range(0, 12500):
+    for j in range(0, 10):
+        try:
+            with open(f"{path}\{i}_{j}.txt", "r") as read_file:
+                tekst = read_file.read()
+                worksheet.write(f'A{i+2}',tekst)
+                worksheet.write(f"B{i+2}",1)
+        except:
+            print(0)
+print("positive")
+for i in range(0, 12500):
+    for j in range(0, 10):
+        try:
+            with open(f"{path2}\{i}_{j}.txt", "r") as read_file:
+                tekst = read_file.read()
+                worksheet.write(f'A{12502+i}',tekst)
+                worksheet.write(f"B{12502+i}",0)
+        except:
+            print(0)
+
+# сохраняем и закрываем
+workbook.close()
